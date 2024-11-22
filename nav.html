@@ -4,9 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-  font-family: "Lato", sans-serif;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 .sidenav {
   height: 100%;
   width: 0;
@@ -14,7 +14,7 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #666633;
+  background-color: #6b6b47;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -50,20 +50,47 @@ body {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+.topnav {
+  overflow: hidden;
+  background-color: #6b6b47;
+}
+
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.topnav a:hover {
+  background-color: #999966;
+  color: white;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
 </style>
 </head>
 <body>
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">Aktuelles</a>
-  <a href="#">Inspirationen</a>
-  <a href="#">Workshops</a>
-  <a href="#">Kontakt</a>
+  <a href="#">Jahreszeiten</a>
+  <a href="#">Advent</a>
+  <a href="#">Ostern</a>
+  <a href="#">Endlos</a>
 </div>
 
-<div id="main">
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+<div class="topnav">
+  <a <span style="font-size:25px;cursor:pointer" onclick="openNav()">Inspiration</span> </a> <!-- <a href="#about">Kontakt</a> -->
+  <a href="#contact">Aktuelles</a>
+  <a href="#about">Workshops</a>
+  <a href="#about">Kontakt</a>
 </div>
 
 <script>
@@ -77,6 +104,8 @@ function closeNav() {
   document.getElementById("main").style.marginLeft= "0";
 }
 </script>
-   
+
 </body>
-</html> 
+</html>
+
+  
