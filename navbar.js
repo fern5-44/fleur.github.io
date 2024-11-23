@@ -2,23 +2,35 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
-      // Navigationsleiste einfügen
       document.getElementById("navbar-container").innerHTML = data;
 
-      // Sidenav-Steuerung erneut definieren
+      // Sidebar-Steuerung mit neu geladenen Elementen verbinden
       document.querySelector(".sidenav .closebtn").onclick = closeNav;
       document.querySelector(".topnav a").onclick = openNav;
     })
     .catch(error => console.error("Error loading navbar:", error));
 });
 
-// Funktionen für die Sidenav-Steuerung
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+  const sidenav = document.getElementById("mySidenav");
+  const main = document.getElementById("main");
+
+  if (sidenav && main) {
+    sidenav.style.width = "250px";
+    main.style.marginLeft = "250px";
+  } else {
+    console.error("Sidenav or Main content not found");
+  }
 }
 
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
+  const sidenav = document.getElementById("mySidenav");
+  const main = document.getElementById("main");
+
+  if (sidenav && main) {
+    sidenav.style.width = "0";
+    main.style.marginLeft = "0";
+  } else {
+    console.error("Sidenav or Main content not found");
+  }
 }
