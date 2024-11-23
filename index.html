@@ -1,25 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fleur</title>
-    <!-- Navigationsbar -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Schrift */
+		body {margin:0;
+		font-family: courier;
+		}
+		h1 {
+          color: Black;
+          font-size: 800%;
+          text-align: center;
+        }
+        h2 {
+          color: Black;
+          font-size: 400%;
+          text-align: center;   
+        }
+		h3 {
+          color: Black;
+          font-size: 200%;
+          text-align: center;  
+        }
+        p  {
+          color: grey;
+          font-size: 100%;
+          text-align: center;
+        }
+		b {
+          color: Black;
+        }
+/* Gruppen */
+	   .main {
+            padding: 16px;
+            margin-top: 30px;
+            height: 1500px; /* Used in this example to enable scrolling */
+          }
+/* Tabellen */
+        table {
+          border-collapse: collapse;
+          width: 80%;
+        }
+        td, th {
+          border: 1px solid #dddddd;
+          padding: 8px;
+        }
+/* Links */		
+        a {text-decoration: none;
+          color: Black;
+          }
+
+</style>
+<!-- Navigationsbar -->
 <div id="navbar"></div>
 </head>
 
-<body>
+	
+<body style="background-color:white;">
+<!-- INHALT -->
+<div class="main">
+        <h1>Study tools</h1>
+     
+        
 
-<h1>Fleur</h1>
-<p>Willkommen in meinem kleinem aber feinem Blumenatelier Fleur. Lass dich inspirieren....</p>
+<!-- Tabelle Event -->
+<h2>Events</h2>
+<p>Here you can find the Events :). Follow the link to register.</p>
 
+</div>
 
-  	<!-- SCRIPTS -->	
+	<!-- SCRIPTS -->	
   <!-- Script zum Laden der Navigationsleiste -->
   <script>
     // Funktion zum Laden der Navigationsleiste
     async function loadNavbar() {
       try {
         // Lade die navbar.html-Datei
-        const response = await fetch('navbar.html');
+        const response = await fetch('tools/navbar.html');
         // Überprüfe, ob die Datei erfolgreich geladen wurde
         if (response.ok) {
           const navbarContent = await response.text();
@@ -32,6 +94,10 @@
         console.error('Fehler beim Laden der Navbar:', error);
       }
     }
-    
+
+    // Beim Laden der Seite die Navigationsleiste einfügen
+    loadNavbar();
+  </script>
+
 </body>
 </html>
