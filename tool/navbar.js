@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("https://fern5-44.github.io/fleur.github.io/workshop.html")
+  fetch("https://fern5-44.github.io/fleur.github.io/navbar.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar-container").innerHTML = data;
