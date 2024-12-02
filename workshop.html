@@ -193,7 +193,7 @@ td, th {
       <div id="registration-section" class="nohidden">
         <div class="row">
           <div class="col-25">
-            <label for="course">Kurs</label>
+	<label for="course">Kurs</label>
           </div>
           <div class="col-75">
             <select id="course" name="course">
@@ -203,7 +203,8 @@ td, th {
               <option value="08-01-evening">08.01.2025 - 19:00-21:30</option>
   	      <option value="08-01-evening">12.01.2025 - 15:00-17:30</option>
             </select>
-          </div>
+            <input type="tel" id="phone" name="phone" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+	  </div>
         </div>
       </div>
 
