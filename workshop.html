@@ -15,20 +15,14 @@
   }
 }
 	
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
+input[type=text], input[type=email], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
 }
-input[type=email], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
+
 label {
   padding: 12px 12px 12px 0;
   display: inline-block;
@@ -72,6 +66,16 @@ input[type=submit]:hover {
   display: table;
   clear: both;
 }
+
+/* Hidden Sections */
+  .hidden {
+    display: none;
+}
+
+/* Visible Sections */
+  .visible {
+    display: block;
+}
 </style>
 	
 </head>
@@ -86,53 +90,113 @@ input[type=submit]:hover {
         <p>Datum:&nbsp;22.12.2024<br>Zeit:&nbsp;09:30-12:00<br>Freie Plätze:&nbsp;5<br>Anmeldeschluss:&nbsp;18.12.2024</p><br>
 	<p>Datum:&nbsp;22.12.2024<br>Zeit:&nbsp;19:00-21:30<br>Freie Plätze:&nbsp;5<br>Anmeldeschluss:&nbsp;18.12.2024</p><br>
 	 <p>Datum:&nbsp;08.01.2025<br>Zeit:&nbsp;19:00-21:30<br>Freie Plätze:&nbsp;5<br>Anmeldeschluss:&nbsp;03.01.2025</p>
-	<h2>Anmeldung</h2>
-<p>Bei Fragen und Feedback das entsprechende Feld auswählen.</p>
 
-<div class="container">
-  <form action="/action_page.php">
-    <div class="row">
-      <div class="col-25">
-        <label for="fname">Name</label>
+<h2><br>Anmeldung</h2>
+  <p>Bei Fragen und Feedback das entsprechende Feld auswählen.</p>
+
+  <div class="container">
+    <form>
+      <!-- Name -->
+      <div class="row">
+        <div class="col-25">
+          <label for="name">Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="name" name="name" placeholder="Your name.." required>
+        </div>
       </div>
-      <div class="col-75">
-        <input type="text" id="name" name="name" placeholder="Your name.."required>
+
+      <!-- Email -->
+      <div class="row">
+        <div class="col-25">
+          <label for="email">Email</label>
+        </div>
+        <div class="col-75">
+          <input type="email" id="email" name="email" placeholder="Your email.." required>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="lname">Email</label>
+
+      <!-- Issue -->
+      <div class="row">
+        <div class="col-25">
+          <label for="issue">Issue</label>
+        </div>
+        <div class="col-75">
+          <select id="issue" name="issue" onchange="updateVisibility()">
+            <option value="registration">Kurs Anmeldung</option>
+            <option value="question">Fragen</option>
+            <option value="feedback">Feedback</option>
+          </select>
+        </div>
       </div>
-      <div class="col-75">
-        <input type="email" id="email" name="email" placeholder="Your email.."required>
+
+      <!-- Kurs Anmeldung -->
+      <div id="registration-section" class="nohidden">
+        <div class="row">
+          <div class="col-25">
+            <label for="course">Kurs</label>
+          </div>
+          <div class="col-75">
+            <select id="course" name="course">
+              <option value="22-12-morning">22.12.2024 - 09:30-12:00</option>
+              <option value="22-12-evening">22.12.2024 - 19:00-21:30</option>
+              <option value="08-01-evening">08.01.2025 - 19:00-21:30</option>
+            </select>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="country">Issue</label>
+
+      <!-- Fragen -->
+      <div id="question-section" class="hidden">
+        <div class="row">
+          <div class="col-25">
+            <label for="question">Fragen</label>
+          </div>
+          <div class="col-75">
+            <textarea id="question" name="question" placeholder="Stellen Sie Ihre Frage..." style="height:200px"></textarea>
+          </div>
+        </div>
       </div>
-      <div class="col-75">
-        <select id="issue" name="issue">
-          <option value="question">Kurs Anmeldung</option>
-          <option value="feedback">Fragen</option>
-          <option value="Ideas">Feedback</option>
-        </select>
+
+      <!-- Feedback -->
+      <div id="feedback-section" class="hidden">
+        <div class="row">
+          <div class="col-25">
+            <label for="feedback">Feedback</label>
+          </div>
+          <div class="col-75">
+            <textarea id="feedback" name="feedback" placeholder="Ihr Feedback..." style="height:200px"></textarea>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="subject">Subject</label>
+
+      <!-- Submit -->
+      <div class="row">
+        <input type="submit" value="Submit">
       </div>
-      <div class="col-75">
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
-      </div>
-    </div>
-    <div class="row">
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
-<p>Thank's a lot <3</p>	 
+
+<script>
+  function updateVisibility() {
+    const issue = document.getElementById("issue").value;
+
+    // Hide all sections
+    document.getElementById("registration-section").classList.add("hidden");
+    document.getElementById("question-section").classList.add("hidden");
+    document.getElementById("feedback-section").classList.add("hidden");
+
+    // Show selected section
+    if (issue === "registration") {
+      document.getElementById("registration-section").classList.remove("hidden");
+    } else if (issue === "question") {
+      document.getElementById("question-section").classList.remove("hidden");
+    } else if (issue === "feedback") {
+      document.getElementById("feedback-section").classList.remove("hidden");
+    }
+  }
+</script>
         
 
 
