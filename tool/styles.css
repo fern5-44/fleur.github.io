@@ -4,32 +4,33 @@
 }
 
 /* Schrift */
-		body {margin:0;
-		}
-		h1 {
-          color: Black;
-          font-size: 800%;
+        body {
+            font-family: 'Georgia', serif; /* Elegante und natürliche Schriftart */
+            margin: 0;
+            padding: 0;
+            display: 100%;
+            height: 100vh;
+            color: #4a4a4a;
+            background-color: #f9f8f4; /* Warmes, neutrales Hintergrund */
         }
-        h2 {
-          color: Black;
-          font-size: 400%;
-         }
-		h3 {
-          color: Black;
-          font-size: 200%;
+       h1 {
+            font-size: 300%;
+            color: #304d35; /* Dunkles Grün */
         }
-        p  {
-          font-size: 100%;
-        }
-		b {
-          color: Black;
+
+        p {
+            font-size: 110%;
+            color: #4a4a4a;
         }
 /* Gruppen */
-	   .main {
-            padding: 16px;
-            margin-top: 30px;
-            height: 1500px; /* Used in this example to enable scrolling */
-          }
+	main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 /* Tabellen */
         table {
           border-collapse: collapse;
