@@ -25,9 +25,10 @@ p {
     color: #4a4a4a;
 }
 
-b {
+b { /*für Footer*/
     font-size: 110%;
     color: white;
+}
 /* Gruppen */
 main {
     flex: 1;
