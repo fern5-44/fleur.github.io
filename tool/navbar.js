@@ -34,3 +34,11 @@ function closeNav() {
     console.error("Sidenav or Main content not found");
   }
 }
+
+// Footer laden
+  fetch("https://fern5-44.github.io/fleur.github.io/tool/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-container").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
