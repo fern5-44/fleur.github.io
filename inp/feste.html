@@ -1,54 +1,217 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css"> <!-- Falls du CSS auslagerst -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>blumennaturica/</title>
-</head>
+  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css" />
+  <style>
+    .filter-buttons {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
 
+    .filter-buttons button {
+      padding: 10px 18px;
+      margin: 5px;
+      border: none;
+      background-color: #ccc;
+      color: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .filter-buttons button.active {
+      background-color: #666;
+      color: #fff;
+    }
+
+    .gesteck-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .gesteck-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      max-width: 300px;
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .gesteck-card:hover {
+      transform: scale(1.02);
+    }
+
+    .gesteck-card img {
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
+
+    .gesteck-card h3, .gesteck-card p {
+      padding: 10px;
+      margin: 0;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
 <body>
-  <!-- Container für die Navigationsleiste -->
   <div id="navbar-container"></div>
 
- <!-- Hauptinhalt -->
   <div id="main">
-  <br>
-    <b>- Feste -</b>
-  <br>
-    <br>
-    <h1>Advent</h1>
-    <h2>Kränze</h2>
-    <img src="https://fern5-44.github.io/fleur.github.io/pic/advent-k1.JPEG" height="600" width="500"/>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
-      <br><img src="https://fern5-44.github.io/fleur.github.io/pic/advent-k2.JPEG" height="600" width="500"/>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
-    <br><h2>Gesteck</h2>
-    <img src="https://fern5-44.github.io/fleur.github.io/pic/advent-s1.JPEG" height="600" width="600"/>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+    <br><b>- Feste -</b><br><br>
 
-    <h1>Ostern</h1>
-    <h2>Kränze</h2>
-    <p>BILD</p>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
-      <br><p>BILD</p>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
-    <br><h2>Gesteck</h2>
-<p>BILD</p>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+    <!-- Filterbuttons -->
+    <div class="filter-buttons">
+      <button data-filter="advent">Advent</button>
+      <button data-filter="ostern">Ostern</button>
+      <button data-filter="august">1. August</button>
+      <button data-filter="kraenze">Kränze</button>
+      <button data-filter="gesteck">Gesteck</button>
+      <button data-filter="alle" onclick="resetFilters()">Alle anzeigen</button>
+    </div>
+
+    <!-- Galerie -->
+    <div class="gesteck-grid">
+
+      <!-- Advent Kränze -->
+      <div class="gesteck-card advent kraenze">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/advent-k1.JPEG" alt="Advent Kranz 1" onclick="showLightbox(this.src)">
+        <h3>Adventskranz 1</h3>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr ...</p>
+      </div>
+
+      <div class="gesteck-card advent kraenze">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/advent-k2.JPEG" alt="Advent Kranz 2" onclick="showLightbox(this.src)">
+        <h3>Adventskranz 2</h3>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr ...</p>
+      </div>
+
+      <!-- Advent Gesteck -->
+      <div class="gesteck-card advent gesteck">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/advent-s1.JPEG" alt="Advent Gesteck" onclick="showLightbox(this.src)">
+        <h3>Adventsgesteck</h3>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr ...</p>
+      </div>
+
+      <!-- Ostern (Platzhalterbilder) -->
+      <div class="gesteck-card ostern kraenze">
+        <img src="https://via.placeholder.com/300x400?text=Ostern+Kranz+1" alt="Ostern Kranz 1" onclick="showLightbox(this.src)">
+        <h3>Osterkranz 1</h3>
+        <p>Lorem ipsum dolor sit amet ...</p>
+      </div>
+
+      <div class="gesteck-card ostern kraenze">
+        <img src="https://via.placeholder.com/300x400?text=Ostern+Kranz+2" alt="Ostern Kranz 2" onclick="showLightbox(this.src)">
+        <h3>Osterkranz 2</h3>
+        <p>Lorem ipsum dolor sit amet ...</p>
+      </div>
+
+      <div class="gesteck-card ostern gesteck">
+        <img src="https://via.placeholder.com/300x400?text=Ostern+Gesteck" alt="Ostern Gesteck" onclick="showLightbox(this.src)">
+        <h3>Ostergesteck</h3>
+        <p>Lorem ipsum dolor sit amet ...</p>
+      </div>
+
+      <!-- 1. August -->
+      <div class="gesteck-card august kraenze">
+        <img src="https://via.placeholder.com/300x400?text=August+Kranz+1" alt="1. August Kranz 1" onclick="showLightbox(this.src)">
+        <h3>August-Kranz 1</h3>
+        <p>Lorem ipsum dolor sit amet ...</p>
+      </div>
+
+      <div class="gesteck-card august kraenze">
+        <img src="https://via.placeholder.com/300x400?text=August+Kranz+2" alt="1. August Kranz 2" onclick="showLightbox(this.src)">
+        <h3>August-Kranz 2</h3>
+        <p>Lorem ipsum dolor sit amet ...</p>
+      </div>
+
+      <div class="gesteck-card august gesteck">
+        <img src="https://via.placeholder.com/300x400?text=August+Gesteck" alt="1. August Gesteck" onclick="showLightbox(this.src)">
+        <h3>August-Gesteck</h3>
+        <p>Lorem ipsum dolor sit amet ...</p>
+      </div>
+    </div>
   </div>
-	
- <h1>1. August</h1>
-    <h2>Kränze</h2>
-    <p>BILD</p>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
-      <br><p>BILD</p>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
-    <br><h2>Gesteck</h2>
-<p>BILD</p>
-	  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="hideLightbox()">
+    <img id="lightbox-img" src="" alt="Großansicht">
   </div>
-  <!-- JavaScript einfügen -->
+
   <script src="https://fern5-44.github.io/fleur.github.io/tool/navbar.js"></script>
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-buttons button[data-filter]');
+    const cards = document.querySelectorAll('.gesteck-card');
+    let activeFilters = [];
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        if (filter === 'alle') {
+          resetFilters();
+          return;
+        }
+
+        btn.classList.toggle('active');
+
+        if (btn.classList.contains('active')) {
+          activeFilters.push(filter);
+        } else {
+          activeFilters = activeFilters.filter(f => f !== filter);
+        }
+
+        applyFilters();
+      });
+    });
+
+    function applyFilters() {
+      cards.forEach(card => {
+        const matches = activeFilters.every(filter => card.classList.contains(filter));
+        card.style.display = matches || activeFilters.length === 0 ? 'block' : 'none';
+      });
+    }
+
+    function resetFilters() {
+      activeFilters = [];
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      cards.forEach(card => card.style.display = 'block');
+    }
+
+    function showLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function hideLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
