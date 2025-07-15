@@ -1,55 +1,183 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css"> <!-- Falls du CSS auslagerst -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>blumennaturica/</title>
+  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css" />
+  <style>
+    .filter-buttons {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .filter-buttons button {
+      padding: 10px 18px;
+      margin: 5px;
+      border: none;
+      background-color: #ccc;
+      color: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .filter-buttons button.active {
+      background-color: #666;
+      color: #fff;
+    }
+
+    .gesteck-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .gesteck-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      max-width: 250px;
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .gesteck-card:hover {
+      transform: scale(1.02);
+    }
+
+    .gesteck-card img {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .gesteck-card h3, .gesteck-card p {
+      padding: 10px;
+      margin: 0;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Container für die Navigationsleiste -->
   <div id="navbar-container"></div>
 
-  <!-- Hauptinhalt -->
   <div id="main">
-    <h1>Winter</h1>
-    <p>psum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</p>
-    <br>
-    <h2>Türschmuck</h2>
-    <p>...</p>
-    <h2>Kränze</h2>
-    <p>...</p>
-    <br><br>
-    
-    <h1>Frühling</h1>
-    <p>psum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</p>
-    <br>
-    <h2>Türschmuck</h2>
-    <p>...</p>
-    <h2>Kränze</h2>
-    <p>...</p>
-    <br><br>
+    <!-- Deine saisonalen Texte bleiben wie gehabt -->
+    <h1>Blumengestecke</h1>
+    <p>Filtere die Gestecke nach Jahreszeit und Art.</p>
 
-    <h1>Sommer</h1>
-    <p>psum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</p>
-    <br>
-    <h2>Türschmuck</h2>
-    <p>...</p>
-    <h2>Kränze</h2>
-    <p>...</p>
-    <br><br>
+    <!-- Filterbuttons -->
+    <div class="filter-buttons">
+      <button data-filter="winter">Winter</button>
+      <button data-filter="fruehling">Frühling</button>
+      <button data-filter="sommer">Sommer</button>
+      <button data-filter="herbst">Herbst</button>
+      <button data-filter="tuerschmuck">Türschmuck</button>
+      <button data-filter="kraenze">Kränze</button>
+      <button data-filter="alle" onclick="resetFilters()">Alle anzeigen</button>
+    </div>
 
-    <h1>Herbst</h1>
-    <p>psum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam</p>
-    <br>
-    <h2>Türschmuck</h2>
-    <p>...</p>
-    <h2>Kränze</h2>
-    <p>...</p>
-    <br><br>
+    <!-- Galerie -->
+    <div class="gesteck-grid">
+      <div class="gesteck-card winter tuerschmuck">
+        <img src="bilder/winter1.jpg" alt="Winter Türschmuck" onclick="showLightbox(this.src)">
+        <h3>Winter-Türkranz</h3>
+        <p>Tannenzapfen, Schleife – klassisch schön.</p>
+      </div>
+      <div class="gesteck-card fruehling kraenze">
+        <img src="bilder/fruehling1.jpg" alt="Frühlingskranz" onclick="showLightbox(this.src)">
+        <h3>Frühlingskranz</h3>
+        <p>Tulpen, Narzissen, Frische pur.</p>
+      </div>
+      <div class="gesteck-card sommer tuerschmuck kraenze">
+        <img src="bilder/sommer1.jpg" alt="Sommer Türschmuck" onclick="showLightbox(this.src)">
+        <h3>Sommerblüte</h3>
+        <p>Lavendel und Hortensien vereint.</p>
+      </div>
+      <div class="gesteck-card herbst kraenze">
+        <img src="bilder/herbst1.jpg" alt="Herbstkranz" onclick="showLightbox(this.src)">
+        <h3>Herbstkranz</h3>
+        <p>Beeren, Blätter, Farben des Waldes.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- JavaScript einfügen -->
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="hideLightbox()">
+    <img id="lightbox-img" src="" alt="Großansicht">
+  </div>
+
   <script src="https://fern5-44.github.io/fleur.github.io/tool/navbar.js"></script>
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-buttons button[data-filter]');
+    const cards = document.querySelectorAll('.gesteck-card');
+    let activeFilters = [];
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        if (filter === 'alle') {
+          resetFilters();
+          return;
+        }
+
+        btn.classList.toggle('active');
+
+        if (btn.classList.contains('active')) {
+          activeFilters.push(filter);
+        } else {
+          activeFilters = activeFilters.filter(f => f !== filter);
+        }
+
+        applyFilters();
+      });
+    });
+
+    function applyFilters() {
+      cards.forEach(card => {
+        const classes = card.className;
+        const matches = activeFilters.every(filter => classes.includes(filter));
+        card.style.display = matches || activeFilters.length === 0 ? 'block' : 'none';
+      });
+    }
+
+    function resetFilters() {
+      activeFilters = [];
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      cards.forEach(card => card.style.display = 'block');
+    }
+
+    function showLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function hideLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
