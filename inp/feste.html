@@ -6,27 +6,65 @@
   <title>blumennaturica/</title>
   <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css" />
   <style>
-    .filter-buttons {
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .filter-dropdown {
+      position: relative;
+      display: inline-block;
+      margin: 40px auto 20px;
       text-align: center;
-      margin: 40px 0 20px;
+      width: 250px;
     }
 
-    .filter-buttons button {
+    .filter-btn {
+      width: 100%;
       padding: 10px 18px;
-      margin: 5px;
-      border: none;
-      background-color: #ccc;
-      color: #333;
       border-radius: 8px;
+      border: 1.5px solid #304d35; /* dunkelgrün */
+      background-color: #A9C7A9; /* heller Grünton */
+      color: #304d35;
+      font-weight: bold;
       cursor: pointer;
-      font-size: 16px;
+      user-select: none;
     }
 
-    .filter-buttons button.active {
-      background-color: #666;
-      color: #fff;
+    .filter-btn:hover {
+      background-color: #7fa77a;
+      color: white;
     }
 
+    .filter-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      border: 1.5px solid #304d35;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      margin-top: 5px;
+      width: 100%;
+      max-height: 180px;
+      overflow-y: auto;
+      z-index: 100;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .filter-menu label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+      color: #304d35;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .filter-menu input[type="checkbox"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    /* Galerie & Cards */
     .gesteck-grid {
       display: flex;
       flex-wrap: wrap;
@@ -60,6 +98,7 @@
       margin: 0;
     }
 
+    /* Lightbox */
     .lightbox {
       position: fixed;
       top: 0; left: 0;
@@ -86,14 +125,17 @@
   <div id="main">
     <br><b>- Feste -</b><br><br>
 
-    <!-- Filterbuttons -->
-    <div class="filter-buttons">
-      <button data-filter="advent">Advent</button>
-      <button data-filter="ostern">Ostern</button>
-      <button data-filter="august">1. August</button>
-      <button data-filter="kraenze">Kränze</button>
-      <button data-filter="gesteck">Gesteck</button>
-      <button data-filter="alle" onclick="resetFilters()">Alle anzeigen</button>
+    <!-- Filter Dropdown -->
+    <div class="filter-dropdown" id="filterDropdown">
+      <div class="filter-btn" id="filterBtn">Filter auswählen ▼</div>
+      <div class="filter-menu" id="filterMenu">
+        <label><input type="checkbox" value="advent"> Advent</label>
+        <label><input type="checkbox" value="ostern"> Ostern</label>
+        <label><input type="checkbox" value="august"> 1. August</label>
+        <label><input type="checkbox" value="kraenze"> Kränze</label>
+        <label><input type="checkbox" value="gesteck"> Gesteck</label>
+        <label><input type="checkbox" value="alle" checked> Alle anzeigen</label>
+      </div>
     </div>
 
     <!-- Galerie -->
@@ -166,25 +208,44 @@
 
   <script src="https://fern5-44.github.io/fleur.github.io/tool/navbar.js"></script>
   <script>
-    const filterButtons = document.querySelectorAll('.filter-buttons button[data-filter]');
+    const filterBtn = document.getElementById('filterBtn');
+    const filterMenu = document.getElementById('filterMenu');
+    const checkboxes = filterMenu.querySelectorAll('input[type="checkbox"]');
     const cards = document.querySelectorAll('.gesteck-card');
-    let activeFilters = [];
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
+    // Dropdown öffnen/schließen
+    filterBtn.addEventListener('click', () => {
+      filterMenu.style.display = filterMenu.style.display === 'block' ? 'none' : 'block';
+    });
 
-        if (filter === 'alle') {
-          resetFilters();
-          return;
+    // Klick außerhalb Dropdown schließt es
+    document.addEventListener('click', (e) => {
+      if (!filterBtn.contains(e.target) && !filterMenu.contains(e.target)) {
+        filterMenu.style.display = 'none';
+      }
+    });
+
+    // Filter anwenden
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        if (cb.value === 'alle' && cb.checked) {
+          // Alle anderen deaktivieren
+          checkboxes.forEach(other => {
+            if (other.value !== 'alle') other.checked = false;
+          });
+        } else if (cb.value !== 'alle' && cb.checked) {
+          // "Alle" deaktivieren, wenn andere gewählt werden
+          checkboxes.forEach(allCb => {
+            if (allCb.value === 'alle') allCb.checked = false;
+          });
         }
 
-        btn.classList.toggle('active');
-
-        if (btn.classList.contains('active')) {
-          activeFilters.push(filter);
-        } else {
-          activeFilters = activeFilters.filter(f => f !== filter);
+        // Wenn keine Checkbox aktiv, "alle" aktivieren
+        const anyChecked = Array.from(checkboxes).some(chk => chk.checked && chk.value !== 'alle');
+        if (!anyChecked) {
+          checkboxes.forEach(allCb => {
+            if (allCb.value === 'alle') allCb.checked = true;
+          });
         }
 
         applyFilters();
@@ -192,16 +253,20 @@
     });
 
     function applyFilters() {
-      cards.forEach(card => {
-        const matches = activeFilters.every(filter => card.classList.contains(filter));
-        card.style.display = matches || activeFilters.length === 0 ? 'block' : 'none';
-      });
-    }
+      const activeFilters = Array.from(checkboxes)
+                                .filter(cb => cb.checked && cb.value !== 'alle')
+                                .map(cb => cb.value);
 
-    function resetFilters() {
-      activeFilters = [];
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      cards.forEach(card => card.style.display = 'block');
+      if (activeFilters.length === 0) {
+        // "Alle" aktiv -> alle anzeigen
+        cards.forEach(card => card.style.display = 'block');
+      } else {
+        cards.forEach(card => {
+          // Karte zeigen, wenn sie mindestens einen Filter erfüllt
+          const matches = activeFilters.some(filter => card.classList.contains(filter));
+          card.style.display = matches ? 'block' : 'none';
+        });
+      }
     }
 
     function showLightbox(src) {
