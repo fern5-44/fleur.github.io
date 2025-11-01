@@ -1,30 +1,113 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css"> <!-- Falls du CSS auslagerst -->
-  <title>blumennaturica</title>
+  <title>Über mich – blumennaturica</title>
+  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css">
+
+  <style>
+    /* Behalte deine bestehende Schrift aus styles.css */
+    body {
+      background-color: #f8f9f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    #main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fffdf9;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #557a46;
+      font-size: 1.8em;
+      margin-top: 1.5em;
+    }
+
+    img {
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    a {
+      color: #7ba46b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 1.1em;
+      color: #444;
+    }
+
+    .divider {
+      border: none;
+      height: 2px;
+      background: #cddac1;
+      margin: 30px 0;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Container für die Navigationsleiste -->
+  <!-- Navigationsleiste -->
   <div id="navbar-container"></div>
 
   <!-- Hauptinhalt -->
   <div id="main">
-  <br><br><b>- Kontakt -</b><br><br>
-    <h1>Über mich</h1>
-    <img src="https://fern5-44.github.io/fleur.github.io/pic/kontakt.JPEG" height="300" width="200"/>
-    <p>Ich bin die Helen und bin in Bischofszell Wohnhaft. Nebst meiner grosse Leidenschaft als Kindergärtnerin zu unterrichten, bin ich gerne in der Natur. Ob mit dem Velo oder zu Fuss sammle ich gerne die Schätze der Natur.</p>
-    <h1>Meine Idee</h1>
-    <p>Nebst Naturschätzen verarbeite ich Materialien von Floristen aus der Region. Ich möchte den Leuten ermöglichen, ihr eigene Deko herzustellen. Man braucht kein Talent dafür, wenn man sich von der Natur inspirieren lässt. Ich zeige gern meine Ideen, damit andere davon profitieren können. <br> Diese Webseite dient als Inspiration für routinierte Bastsler und als Chance für Interessenten. </p>
-    <h1>Fragen & Anliegen</h1>
-    <p>Bei Fragen und Anliegen dürfen Sie gerne ein Formular senden. Ich werde schnellstmöglich auf Sie zukommen.</p> <br><br>
-    <a href="https://fern5-44.github.io/fleur.github.io/workshop.html">Klicken Sie hier und gehen Sie zum Anmeldeformular. Ändern sie die Auswahl auf "Fragen" und stellen Sie ihre Frage.</a>
-    <br><br><br><br><br><br>
-    </div>
+    <p class="intro"><b>– Kontakt & Über mich –</b></p>
 
-  <!-- JavaScript einfügen -->
+    <h1>Über mich</h1>
+    <img src="https://fern5-44.github.io/fleur.github.io/pic/kontakt.JPEG" alt="Helen" height="300" width="200"/>
+    <p>
+      Ich bin Helen und lebe in Bischofszell und liebe es, als Kindergärtnerin mit Kindern zu entdecken, zu basteln und zu staunen.
+      Wenn ich nicht gerade unterrichte, bin ich am liebsten in der Natur unterwegs – zu Fuss oder mit dem Velo.
+      Dabei finde ich immer wieder kleine Schätze, die mich inspirieren, Neues zu gestalten.
+    </p>
+
+    <hr class="divider">
+
+    <h1>Die Idee hinter <i>blumennaturica</i></h1>
+    <p>
+      Ich verarbeite Naturmaterialien und Ressourcen von regionalen Floristen – immer mit dem Ziel,
+      etwas Schönes und Nachhaltiges zu schaffen.  
+      <br><br>
+      Mein Herzensprojekt ist es, anderen zu zeigen, wie einfach es ist,
+      selbst Dekorationen zu gestalten – ganz ohne künstlerische Vorkenntnisse.
+      Man braucht nur ein bisschen Neugier und den Mut, sich von der Natur leiten zu lassen.
+      <br><br>
+      Diese Webseite ist meine kleine digitale Werkstatt: 
+      eine Inspirationsquelle für Bastelfreunde und eine Einladung an alle,
+      die Lust auf Kreativität haben.
+    </p>
+
+    <hr class="divider">
+
+    <h1>Fragen oder Anliegen?</h1>
+    <p>
+      Ich freue mich über Ihre Nachricht!  
+      Verwenden Sie einfach mein Kontaktformular – ich melde mich so bald wie möglich zurück.
+    </p>
+    <p>
+     <a href="https://fern5-44.github.io/fleur.github.io/workshop.html">
+      Zum Formular: Wählen Sie dort „Fragen“ und schreiben Sie mir direkt.</a>
+    </p>
+
+    <br><br>
+  </div>
+
+  <!-- JavaScript -->
   <script src="https://fern5-44.github.io/fleur.github.io/tool/navbar.js"></script>
 </body>
 </html>
