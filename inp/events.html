@@ -1,24 +1,400 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css"> <!-- Falls du CSS auslagerst -->
-  <title>blumennaturica/</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>blumennaturica/ – Hochzeit & Events</title>
+  <link rel="stylesheet" href="https://fern5-44.github.io/fleur.github.io/tool/styles.css" />
+  <style>
+    /* ---------- Hero / Intro ---------- */
+    .hochzeit-hero {
+      text-align: center;
+      max-width: 720px;
+      margin: 30px auto 10px;
+      padding: 0 20px;
+    }
+
+    .hochzeit-hero h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    .hochzeit-hero .lead {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .hochzeit-hero .zitat {
+      font-style: italic;
+      color: #7fa77a;
+      margin-top: 20px;
+      font-size: 1.05em;
+    }
+
+    /* ---------- Filter ---------- */
+    .filter-buttons {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .filter-buttons button {
+      padding: 10px 18px;
+      margin: 5px;
+      border: none;
+      background-color: #ccc;
+      color: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .filter-buttons button.active {
+      background-color: #7fa77a;
+      color: #fff;
+    }
+
+    /* ---------- Galerie ---------- */
+    .gesteck-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .gesteck-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      max-width: 250px;
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .gesteck-card:hover {
+      transform: scale(1.02);
+    }
+
+    .gesteck-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      cursor: pointer;
+      background: #f3efe7; /* Platzhalter-Farbe falls Bild fehlt */
+    }
+
+    .gesteck-card h3, .gesteck-card p {
+      padding: 10px;
+      margin: 0;
+    }
+
+    .gesteck-card h3 {
+      font-size: 1.05em;
+    }
+
+    .gesteck-card p {
+      font-size: 0.9em;
+      color: #666;
+      padding-top: 0;
+      padding-bottom: 15px;
+    }
+
+    /* ---------- Ablauf / So entsteht eure Deko ---------- */
+    .ablauf {
+      background: #f7f4ee;
+      padding: 40px 20px;
+      margin: 40px 0;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .ablauf h2 {
+      margin-bottom: 30px;
+    }
+
+    .ablauf-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .ablauf-step {
+      flex: 1 1 200px;
+      max-width: 230px;
+    }
+
+    .ablauf-step .nummer {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      background: #7fa77a;
+      color: #fff;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .ablauf-step h4 {
+      margin: 5px 0 8px;
+    }
+
+    .ablauf-step p {
+      font-size: 0.9em;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* ---------- Kontakt-CTA ---------- */
+    .kontakt-cta {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .kontakt-cta h2 {
+      margin-bottom: 15px;
+    }
+
+    .kontakt-cta p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .kontakt-cta a.button {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #7fa77a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: background-color 0.2s;
+    }
+
+    .kontakt-cta a.button:hover {
+      background-color: #6a916a;
+    }
+
+    /* ---------- Lightbox ---------- */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Container für die Navigationsleiste -->
   <div id="navbar-container"></div>
 
- <!-- Hauptinhalt -->
   <div id="main">
-  <br>
-    <b>- Hochzeits- & Eventsfloristik -</b>
-  <br>
-   
+
+    <!-- ====== INTRO / HERO ====== -->
+    <section class="hochzeit-hero">
+      <h1>Hochzeits- &amp; Eventsfloristik</h1>
+      <p class="lead">
+        Vom zarten Brautstrauß bis zum festlich geschmückten Saal —
+        wir gestalten die Blumen für euren schönsten Tag mit viel Liebe,
+        passend zu eurem Stil und der Jahreszeit.
+      </p>
+      <p class="zitat">„Blumen sind die Musik, die das Auge hört.“</p>
+    </section>
+
+    <!-- ====== INSPIRATIONSGALERIE ====== -->
+    <h2 style="text-align:center; margin-top:40px;">Inspirationen</h2>
+    <p style="text-align:center; color:#555;">Filtert nach dem, was euch interessiert — Mehrfachauswahl möglich.</p>
+
+    <!-- Filterbuttons -->
+    <div class="filter-buttons">
+      <button data-filter="brautstrauss">Brautstrauß</button>
+      <button data-filter="anstecker">Anstecker</button>
+      <button data-filter="tischdeko">Tischdeko</button>
+      <button data-filter="bogen">Traubogen</button>
+      <button data-filter="saalschmuck">Saal- &amp; Kirchenschmuck</button>
+      <button data-filter="autoschmuck">Autoschmuck</button>
+      <button data-filter="haarschmuck">Haarschmuck</button>
+      <button data-filter="alle" onclick="resetFilters()">Alle anzeigen</button>
+    </div>
+
+    <!-- Galerie - Platzhalterbilder einfach durch echte Bildpfade ersetzen -->
+    <div class="gesteck-grid">
+
+      <div class="gesteck-card brautstrauss">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-b1.JPEG" alt="Brautstrauß klassisch" onclick="showLightbox(this.src)">
+        <h3>Klassischer Brautstrauß</h3>
+        <p>Weiße Rosen, Eustoma und zarte Eukalyptuszweige.</p>
+      </div>
+
+      <div class="gesteck-card brautstrauss">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-b2.JPEG" alt="Brautstrauß wild" onclick="showLightbox(this.src)">
+        <h3>Wildromantischer Strauß</h3>
+        <p>Pastellfarben, Wiesenblumen, locker gebunden.</p>
+      </div>
+
+      <div class="gesteck-card anstecker">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-a1.JPEG" alt="Anstecker" onclick="showLightbox(this.src)">
+        <h3>Anstecker</h3>
+        <p>Kleine Blütenkomposition für Bräutigam und Trauzeugen.</p>
+      </div>
+
+      <div class="gesteck-card tischdeko">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-t1.JPEG" alt="Tischdeko niedrig" onclick="showLightbox(this.src)">
+        <h3>Tischgesteck niedrig</h3>
+        <p>Damit man sich über den Tisch hinweg in die Augen schauen kann.</p>
+      </div>
+
+      <div class="gesteck-card tischdeko">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-t2.JPEG" alt="Tafelläufer Blumen" onclick="showLightbox(this.src)">
+        <h3>Blumen-Tafelläufer</h3>
+        <p>Üppige Blütenstraße über die ganze Tischlänge.</p>
+      </div>
+
+      <div class="gesteck-card bogen">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-bo1.JPEG" alt="Traubogen" onclick="showLightbox(this.src)">
+        <h3>Traubogen</h3>
+        <p>Der blühende Rahmen für euer Ja-Wort.</p>
+      </div>
+
+      <div class="gesteck-card saalschmuck">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-s1.JPEG" alt="Saalschmuck" onclick="showLightbox(this.src)">
+        <h3>Saalschmuck</h3>
+        <p>Hängende Blumenwolken, Säulengestecke und Kerzendekor.</p>
+      </div>
+
+      <div class="gesteck-card saalschmuck">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-s2.JPEG" alt="Kirchenschmuck" onclick="showLightbox(this.src)">
+        <h3>Kirchenschmuck</h3>
+        <p>Stuhlreihen, Altar und Eingang feierlich geschmückt.</p>
+      </div>
+
+      <div class="gesteck-card autoschmuck">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-au1.JPEG" alt="Autoschmuck" onclick="showLightbox(this.src)">
+        <h3>Autoschmuck</h3>
+        <p>Dezent oder verspielt — passend zu eurem Auto.</p>
+      </div>
+
+      <div class="gesteck-card haarschmuck">
+        <img src="https://fern5-44.github.io/fleur.github.io/pic/hochzeit-h1.JPEG" alt="Haarkranz" onclick="showLightbox(this.src)">
+        <h3>Haarkranz &amp; Blütenschmuck</h3>
+        <p>Frische Blüten im Haar — natürlich und romantisch.</p>
+      </div>
+
+    </div>
+
+    <!-- ====== ABLAUF ====== -->
+    <section class="ablauf">
+      <h2>So entsteht eure Hochzeitsdeko</h2>
+      <div class="ablauf-steps">
+        <div class="ablauf-step">
+          <div class="nummer">1</div>
+          <h4>Kennenlernen</h4>
+          <p>Wir hören uns eure Vorstellungen, Farben und Stilrichtung an.</p>
+        </div>
+        <div class="ablauf-step">
+          <div class="nummer">2</div>
+          <h4>Konzept</h4>
+          <p>Ihr bekommt einen passenden Vorschlag — Blumenwahl, Stimmung, Budget.</p>
+        </div>
+        <div class="ablauf-step">
+          <div class="nummer">3</div>
+          <h4>Umsetzung</h4>
+          <p>Wir binden, gestalten und liefern alles frisch zum Hochzeitstag.</p>
+        </div>
+        <div class="ablauf-step">
+          <div class="nummer">4</div>
+          <h4>Euer Tag</h4>
+          <p>Ihr genießt — wir kümmern uns um Aufbau und letzte Handgriffe vor Ort.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== KONTAKT-CTA ====== -->
+    <section class="kontakt-cta">
+      <h2>Lust auf ein unverbindliches Gespräch?</h2>
+      <p>
+        Wir nehmen uns gerne Zeit für euch und besprechen alles in Ruhe —
+        am liebsten bei einer Tasse Tee in unserem Laden.
+      </p>
+      <a class="button" href="kontakt.html">Termin anfragen</a>
+    </section>
+
   </div>
 
-  <!-- JavaScript einfügen -->
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="hideLightbox()">
+    <img id="lightbox-img" src="" alt="Großansicht">
+  </div>
+
   <script src="https://fern5-44.github.io/fleur.github.io/tool/navbar.js"></script>
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-buttons button[data-filter]');
+    const cards = document.querySelectorAll('.gesteck-card');
+    let activeFilters = [];
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        if (filter === 'alle') {
+          resetFilters();
+          return;
+        }
+
+        btn.classList.toggle('active');
+
+        if (btn.classList.contains('active')) {
+          activeFilters.push(filter);
+        } else {
+          activeFilters = activeFilters.filter(f => f !== filter);
+        }
+
+        applyFilters();
+      });
+    });
+
+    function applyFilters() {
+      cards.forEach(card => {
+        const classes = card.className;
+        const matches = activeFilters.every(filter => classes.includes(filter));
+        card.style.display = matches || activeFilters.length === 0 ? 'block' : 'none';
+      });
+    }
+
+    function resetFilters() {
+      activeFilters = [];
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      cards.forEach(card => card.style.display = 'block');
+    }
+
+    function showLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function hideLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
